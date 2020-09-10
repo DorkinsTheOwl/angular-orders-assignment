@@ -1,7 +1,7 @@
-export default interface OrderListInterface {
-  index: number;
+export default interface Order {
+  id: number;
   customer: string;
-  created: string;
+  created: Date;
   revenue: number;
   cost: number;
   price: number;

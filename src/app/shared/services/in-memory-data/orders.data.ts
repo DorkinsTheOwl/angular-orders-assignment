@@ -240,16 +240,16 @@ const getFulfillment = n => {
 
 
 export default names.map((customer, index) => {
-    const price = Math.floor(Math.random() * 1000);
+    const price = Math.floor(Math.random() * 1000 + 358);
     const cost = Math.floor(Math.random() * 357);
     const revenue = price - cost;
     const created = new Date();
     created.setDate(created.getDate() - index % 10);
 
     return {
-      index,
+      id: index + 1,
       customer,
-      created: created.toLocaleString(),
+      created,
       revenue,
       cost,
       price,

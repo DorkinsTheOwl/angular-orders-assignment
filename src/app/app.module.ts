@@ -3,7 +3,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { httpInterceptorProviders } from 'src/app/http-interceptors';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from 'src/app/shared/services/in-memory-data/in-memory-data.service';
 
 @NgModule({
   declarations: [
@@ -13,10 +15,10 @@ import { httpInterceptorProviders } from 'src/app/http-interceptors';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, { dataEncapsulation: false })
   ],
-  providers: [
-    httpInterceptorProviders
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
