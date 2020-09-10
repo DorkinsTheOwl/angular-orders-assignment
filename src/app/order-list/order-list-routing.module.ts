@@ -9,15 +9,16 @@ import { ConfirmOrderComponent } from 'src/app/order-list/import-orders/confirm-
 const orderListRoutes: Routes = [
   {
     path: '', component: OrderListComponent, children: [
+      { path: 'import', redirectTo: 'import/find' },
       {
         path: 'import', component: ImportOrdersComponent, children: [
           { path: 'find', component: FindOrderComponent },
           { path: 'prepare', component: PrepareOrderComponent },
           { path: 'confirm', component: ConfirmOrderComponent }
-        ]
+        ],
       },
-    ]
-  }
+    ],
+  },
 ];
 
 @NgModule({

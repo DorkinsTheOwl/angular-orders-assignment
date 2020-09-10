@@ -1,15 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-import-orders',
   templateUrl: './import-orders.component.html',
   styleUrls: ['./import-orders.component.scss']
 })
-export class ImportOrdersComponent implements OnInit {
+export class ImportOrdersComponent implements AfterViewInit, OnDestroy {
+  @ViewChild(TemplateRef)
+  ref;
+  url: string;
 
-  constructor() { }
 
-  ngOnInit(): void {
+  constructor(
+    private dialog: MatDialog,
+    private router: Router
+  ) {
+  }
+
+  ngAfterViewInit(): void {
+    this.url = this.router.url;
+
+    this.dialog
+      .open(this.ref, {
+        width: '60vw',
+        height: '70vh'
+      })
+      .afterClosed().pipe(take(1)).subscribe(() => {
+      this.router.navigate(['/adwda']);
+    });
+  }
+
+  ngOnDestroy(): void {
+
   }
 
 }
