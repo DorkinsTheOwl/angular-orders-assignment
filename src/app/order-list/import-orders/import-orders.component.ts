@@ -26,11 +26,14 @@ export class ImportOrdersComponent implements AfterViewInit, OnDestroy {
     this.dialog
       .open(this.ref, {
         width: '60vw',
-        height: '70vh'
+        height: '70vh',
+        panelClass: 'dialog-panel'
       })
-      .afterClosed().pipe(take(1)).subscribe(() => {
-      this.router.navigate(['/adwda']);
-    });
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(() => {
+        this.router.navigate(['/']);
+      });
   }
 
   ngOnDestroy(): void {
