@@ -6,13 +6,11 @@
     <div class="card-body">
       <h5 class="card-title">
         <div class="d-flex justify-content-between">
-
-          <div>1. Find Order</div>
-          <div>2. Prepare Products</div>
-          <div>3. Confirm Order</div>
+          <h4 [ngClass]="{'font-weight-bold': url.includes('find')}">1. Find Order</h4>
+          <h4 [ngClass]="{'font-weight-bold': url.includes('prepare')}">2. Prepare Products</h4>
+          <h4 [ngClass]="{'font-weight-bold': url.includes('confirm')}">3. Confirm Order</h4>
         </div>
       </h5>
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
       <router-outlet></router-outlet>
     </div>
   </div>

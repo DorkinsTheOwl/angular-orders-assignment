@@ -7,7 +7,11 @@ export class OrderListService {
   constructor(private http: HttpClient) {
   }
 
-  getOrders(): Observable<any> {
+  getInternalOrders(): Observable<any> {
     return this.http.get('api/internalOrders');
+  }
+
+  getExternalOrders(): Observable<any> {
+    return this.http.get('api/externalOrders');
   }
 }

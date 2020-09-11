@@ -220,6 +220,389 @@ const names = [
   'Zoë Kravitz', 'Zsa Zsa Gabor'
 ];
 
+const products = [
+  {
+    name: 'Snoopy Socks',
+    sku: 'SOCK_SNOOPY',
+    variants: [
+      {
+        material: 'cotton',
+        price: 9.99
+      },
+      {
+        material: 'wool',
+        price: 19.99
+      },
+      {
+        material: 'linen',
+        price: 14.99
+      },
+    ]
+  },
+  {
+    name: 'Star Wars Socks',
+    sku: 'SOCK_SW',
+    variants: [
+      {
+        material: 'cotton',
+        price: 9.99
+      },
+      {
+        material: 'wool',
+        price: 19.99
+      },
+      {
+        material: 'linen',
+        price: 14.99
+      },
+    ]
+  },
+  {
+    name: 'iSock Sock',
+    sku: 'SOCK_ISOCK',
+    variants: [
+      {
+        material: 'cotton',
+        price: 9.99
+      },
+      {
+        material: 'wool',
+        price: 19.99
+      },
+      {
+        material: 'linen',
+        price: 14.99
+      },
+    ]
+  },
+  {
+    name: 'Snoopy Underwear',
+    sku: 'UW_SNOOPY',
+    variants: [
+      {
+        material: 'cotton',
+        price: 9.99
+      },
+      {
+        material: 'wool',
+        price: 19.99
+      },
+      {
+        material: 'linen',
+        price: 14.99
+      },
+    ]
+  },
+  {
+    name: 'Star Wars Underwear',
+    sku: 'UW_SW',
+    variants: [
+      {
+        material: 'cotton',
+        price: 9.99
+      },
+      {
+        material: 'wool',
+        price: 19.99
+      },
+      {
+        material: 'linen',
+        price: 14.99
+      },
+    ]
+  },
+  {
+    name: 'iUW Underwear',
+    sku: 'UW_ISOCK',
+    variants: [
+      {
+        material: 'cotton',
+        price: 9.99
+      },
+      {
+        material: 'wool',
+        price: 19.99
+      },
+      {
+        material: 'linen',
+        price: 14.99
+      },
+    ]
+  },
+  {
+    name: 'Snoopy Pants',
+    sku: 'PANTS_SNOOPY',
+    variants: [
+      {
+        material: 'Jean',
+        price: 59.99
+      },
+      {
+        material: 'Denim',
+        price: 49.99
+      },
+      {
+        material: 'Khaki',
+        price: 34.99
+      },
+    ]
+  },
+  {
+    name: 'Star Wars Pants',
+    sku: 'PANTS_SW',
+    variants: [
+      {
+        material: 'Jean',
+        price: 59.99
+      },
+      {
+        material: 'Denim',
+        price: 49.99
+      },
+      {
+        material: 'Khaki',
+        price: 34.99
+      },
+    ]
+  },
+  {
+    name: 'Plain Pants',
+    sku: 'PANTS_PLAIN',
+    variants: [
+      {
+        material: 'Jean',
+        price: 59.99
+      },
+      {
+        material: 'Denim',
+        price: 49.99
+      },
+      {
+        material: 'Khaki',
+        price: 34.99
+      },
+    ]
+  },
+  {
+    name: 'Snoopy Shirt',
+    sku: 'SHIRT_SNOOPY',
+    variants: [
+      {
+        material: 'Wool',
+        price: 49.99
+      },
+      {
+        material: 'Cotton',
+        price: 39.99
+      },
+      {
+        material: 'Linen',
+        price: 24.99
+      },
+    ]
+  },
+  {
+    name: 'Star Wars Shirt',
+    sku: 'SHIRT_SW',
+    variants: [
+      {
+        material: 'Wool',
+        price: 49.99
+      },
+      {
+        material: 'Cotton',
+        price: 39.99
+      },
+      {
+        material: 'Linen',
+        price: 24.99
+      },
+    ]
+  },
+  {
+    name: 'iShirt',
+    sku: 'SHIRT_I',
+    variants: [
+      {
+        material: 'Wool',
+        price: 149.99
+      },
+      {
+        material: 'Cotton',
+        price: 139.99
+      },
+      {
+        material: 'Linen',
+        price: 124.99
+      },
+    ]
+  },
+  {
+    name: 'Brown Belt',
+    sku: 'BELT_BROWN',
+    variants: [
+      {
+        material: 'Leather',
+        price: 29.99
+      },
+      {
+        material: 'Fabric',
+        price: 14.99
+      },
+      {
+        material: 'Rubber',
+        price: 9.99
+      },
+    ]
+  },
+  {
+    name: 'Black Belt',
+    sku: 'BELT_BLACK',
+    variants: [
+      {
+        material: 'Leather',
+        price: 29.99
+      },
+      {
+        material: 'Fabric',
+        price: 14.99
+      },
+      {
+        material: 'Rubber',
+        price: 9.99
+      },
+    ]
+  },
+  {
+    name: 'Rainbow Belt',
+    sku: 'BELT_RAINBOW',
+    variants: [
+      {
+        material: 'Leather',
+        price: 29.99
+      },
+      {
+        material: 'Fabric',
+        price: 14.99
+      },
+      {
+        material: 'Rubber',
+        price: 9.99
+      },
+    ]
+  },
+  {
+    name: 'Fedora',
+    sku: 'HAT_FED',
+    variants: [
+      {
+        material: 'Simple',
+        price: 9.99
+      },
+      {
+        material: 'Fancy',
+        price: 44.99
+      },
+      {
+        material: 'Extra Fancy',
+        price: 69.99
+      },
+    ]
+  },
+  {
+    name: 'Baret',
+    sku: 'HAT_BAR',
+    variants: [
+      {
+        material: 'Simple',
+        price: 9.99
+      },
+      {
+        material: 'Fancy',
+        price: 44.99
+      },
+      {
+        material: 'Extra Fancy',
+        price: 69.99
+      },
+    ]
+  },
+  {
+    name: 'Baseball Cap',
+    sku: 'HAT_BASEBALL',
+    variants: [
+      {
+        material: 'Simple',
+        price: 9.99
+      },
+      {
+        material: 'Fancy',
+        price: 44.99
+      },
+      {
+        material: 'Extra Fancy',
+        price: 69.99
+      },
+    ]
+  },
+  {
+    name: 'Black Gloves',
+    sku: 'GLOVES_BLACK',
+    variants: [
+      {
+        material: 'Cotton',
+        price: 29.99
+      },
+      {
+        material: 'Leather',
+        price: 34.99
+      },
+      {
+        material: 'Latex',
+        price: 19.99
+      },
+    ]
+  },
+  {
+    name: 'Beige Gloves',
+    sku: 'GLOVES_BEIGE',
+    variants: [
+      {
+        material: 'Cotton',
+        price: 29.99
+      },
+      {
+        material: 'Leather',
+        price: 34.99
+      },
+      {
+        material: 'Latex',
+        price: 19.99
+      },
+    ]
+  },
+  {
+    name: 'Red Gloves',
+    sku: 'GLOVES_RED',
+    variants: [
+      {
+        material: 'Cotton',
+        price: 29.99
+      },
+      {
+        material: 'Leather',
+        price: 34.99
+      },
+      {
+        material: 'Latex',
+        price: 19.99
+      },
+    ]
+  }
+];
+
+const getRandomProduct = () => products[Math.floor(Math.random() * products.length)];
+
 const getFulfillment = n => {
   const x = n % 6;
   switch (x) {
@@ -238,7 +621,7 @@ const getFulfillment = n => {
   }
 };
 
-export const internalOrders = names.map((customer, index) => {
+export const internalOrders = names.slice(0, names.length / 2).map((customer, index) => {
     const price = Math.floor(Math.random() * 1000 + 358);
     const cost = Math.floor(Math.random() * 357);
     const revenue = price - cost;
@@ -257,4 +640,21 @@ export const internalOrders = names.map((customer, index) => {
   }
 );
 
-export const externalOrders = [];
+export const externalOrders = names.slice(names.length / 2).map((customer, index) => {
+  const order = [...Array(Math.ceil(Math.random() * 5))].map(() => {
+    const product = getRandomProduct();
+    return {
+      ...product,
+      selectedVariant: product.variants[Math.floor(Math.random() * product.variants.length)]
+    };
+  });
+
+  return {
+    id: index + 1,
+    customer,
+    order,
+    amount: order.length,
+    volume: order.reduce((acc, item) => acc + item.selectedVariant.price, 0),
+    sku: order[0].sku,
+  };
+});

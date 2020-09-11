@@ -27,7 +27,7 @@ export class ImportOrdersComponent implements AfterViewInit, OnDestroy {
     this.dialog
       .open(this.ref, {
         width: '60vw',
-        height: '70vh',
+        height: '90vh',
         panelClass: 'dialog-panel'
       })
       .afterClosed()

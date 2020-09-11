@@ -1,6 +1,6 @@
 import { OrderListState } from 'src/app/interfaces';
 import { RxAction } from '../../store/store.helpers';
-import { StoreOrders } from './order-list.actions';
+import { StoreExternalOrders, StoreInternalOrders } from './order-list.actions';
 
 const initialState: OrderListState = {
   internalOrders: [],
@@ -9,7 +9,12 @@ const initialState: OrderListState = {
 
 export const orderListReducer = (state = initialState, action: RxAction): OrderListState => {
   switch (action.type) {
-    case StoreOrders.name:
+    case StoreExternalOrders.name:
+      return {
+        ...state,
+        externalOrders: action.payload
+      };
+    case StoreInternalOrders.name:
       return {
         ...state,
         internalOrders: action.payload

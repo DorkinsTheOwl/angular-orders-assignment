@@ -1,5 +1,8 @@
 import { RxAction } from '../../store/store.helpers';
-import { InternalOrder } from '../../interfaces';
+import { ExternalOrder, InternalOrder } from '../../interfaces';
 
-export class StoreOrders extends RxAction<InternalOrder[]> {
+export class StoreInternalOrders extends RxAction<InternalOrder[]> {
+}
+
+export class StoreExternalOrders extends RxAction<ExternalOrder[]> {
 }

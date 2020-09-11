@@ -5,7 +5,7 @@ import { AppState, InternalOrder } from '../interfaces';
 import { OrderListService } from 'src/app/order-list/order-list.service';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { StoreOrders } from './store/order-list.actions';
+import { StoreInternalOrders } from './store/order-list.actions';
 
 @Component({
   selector: 'app-order-list',
@@ -28,8 +28,8 @@ export class OrderListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.orderListService.getOrders().subscribe(orders => {
-      this.store.dispatch(new StoreOrders(orders));
+    this.orderListService.getInternalOrders().subscribe(orders => {
+      this.store.dispatch(new StoreInternalOrders(orders));
     });
 
     this.subscriptions.add(this.store.select('orderList').subscribe(({ internalOrders }) => {
