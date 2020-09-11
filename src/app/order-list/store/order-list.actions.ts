@@ -1,5 +1,5 @@
-import {RxAction} from '../../store/store.helpers';
-import {Order} from '../../interfaces';
+import { RxAction } from '../../store/store.helpers';
+import { InternalOrder } from '../../interfaces';
 
-export class StoreOrders extends RxAction<Order[]> {
+export class StoreOrders extends RxAction<InternalOrder[]> {
 }

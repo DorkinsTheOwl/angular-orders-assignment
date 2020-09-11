@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { OrderListService } from 'src/app/order-list/order-list.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ImportOrdersComponent } from 'src/app/order-list/import-orders/import-orders.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,10 +18,11 @@ import { ImportOrdersComponent } from 'src/app/order-list/import-orders/import-o
     ImportOrdersComponent,
     ConfirmOrderComponent,
     FindOrderComponent,
-    PrepareOrderComponent
+    PrepareOrderComponent,
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     OrderListRoutingModule,
     MatTableModule,
     MatPaginatorModule,

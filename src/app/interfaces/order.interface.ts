@@ -1,4 +1,4 @@
-export default interface Order {
+export interface InternalOrder {
   id: number;
   customer: string;
   created: Date;
@@ -6,4 +6,8 @@ export default interface Order {
   cost: number;
   price: number;
   fulfillment: string;
+}
+
+export interface ExternalOrder {
+
 }

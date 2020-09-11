@@ -11,6 +11,7 @@ import { take } from 'rxjs/operators';
 export class ImportOrdersComponent implements AfterViewInit, OnDestroy {
   @ViewChild(TemplateRef)
   ref;
+
   url: string;
 
 

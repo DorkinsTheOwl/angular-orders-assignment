@@ -8,6 +8,6 @@ export class OrderListService {
   }
 
   getOrders(): Observable<any> {
-    return this.http.get('api/orders');
+    return this.http.get('api/internalOrders');
   }
 }

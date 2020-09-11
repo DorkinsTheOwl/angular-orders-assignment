@@ -3,7 +3,8 @@ import { RxAction } from '../../store/store.helpers';
 import { StoreOrders } from './order-list.actions';
 
 const initialState: OrderListState = {
-  orders: []
+  internalOrders: [],
+  externalOrders: []
 };
 
 export const orderListReducer = (state = initialState, action: RxAction): OrderListState => {
@@ -11,7 +12,7 @@ export const orderListReducer = (state = initialState, action: RxAction): OrderL
     case StoreOrders.name:
       return {
         ...state,
-        orders: action.payload
+        internalOrders: action.payload
       };
     default:
       return state;

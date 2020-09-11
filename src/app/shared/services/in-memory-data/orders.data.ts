@@ -238,8 +238,7 @@ const getFulfillment = n => {
   }
 };
 
-
-export default names.map((customer, index) => {
+export const internalOrders = names.map((customer, index) => {
     const price = Math.floor(Math.random() * 1000 + 358);
     const cost = Math.floor(Math.random() * 357);
     const revenue = price - cost;
@@ -257,3 +256,5 @@ export default names.map((customer, index) => {
     };
   }
 );
+
+export const externalOrders = [];

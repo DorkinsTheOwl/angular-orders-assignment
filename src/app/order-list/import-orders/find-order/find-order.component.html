@@ -1,1 +1,57 @@
-<p>find-order works!</p>
+<div class="input-group mb-3 position-relative">
+  <div class="input-search-icon position-absolute">
+    <svg width="1.2em" height="1.2em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+      <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+    </svg>
+  </div>
+
+  <form [formGroup]="searchForm" class="w-100">
+    <input
+      type="text"
+      class="form-control rounded-pill"
+      placeholder="Enter Order Number"
+      aria-label="Example text with button addon"
+      aria-describedby="button-addon1"
+      formControlName="query"
+      (ngModelChange)="searchQuery()"
+    >
+  </form>
+
+  <div class="mat-elevation-z8 mt-4 w-100">
+    <table mat-table [dataSource]="dataSource" class="w-100">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef class="pr-2">#</th>
+        <td mat-cell *matCellDef="let element" class="pr-2">#{{ element.id }}</td>
+      </ng-container>
+      <ng-container matColumnDef="customer">
+        <th mat-header-cell *matHeaderCellDef class="pr-2">Customer</th>
+        <td mat-cell *matCellDef="let element" class="pr-2">{{ element.customer }}</td>
+      </ng-container>
+      <ng-container matColumnDef="created">
+        <th mat-header-cell *matHeaderCellDef class="pr-2">Created</th>
+        <td mat-cell *matCellDef="let element" class="pr-2">{{ element.created | date:'MMM d, h:mm a' }}</td>
+      </ng-container>
+      <ng-container matColumnDef="revenue">
+        <th mat-header-cell *matHeaderCellDef class="pr-2">Revenue $</th>
+        <td mat-cell *matCellDef="let element" class="pr-2">+ {{ element.revenue }}</td>
+      </ng-container>
+      <ng-container matColumnDef="cost">
+        <th mat-header-cell *matHeaderCellDef class="pr-2">Cost $</th>
+        <td mat-cell *matCellDef="let element" class="pr-2">- {{ element.cost }}</td>
+      </ng-container>
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef class="pr-2">Price $</th>
+        <td mat-cell *matCellDef="let element" class="pr-2">{{ element.price }}</td>
+      </ng-container>
+      <ng-container matColumnDef="fulfillment">
+        <th mat-header-cell *matHeaderCellDef class="pr-2">Fulfillment</th>
+        <td mat-cell *matCellDef="let element" class="pr-2">{{ element.fulfillment }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="pageSizeOptions" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

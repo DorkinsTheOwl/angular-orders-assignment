@@ -1,5 +1,5 @@
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
-import AppState from 'src/app/interfaces/app-state.interface';
+import { AppState } from 'src/app/interfaces';
 import { orderListReducer as orderList } from '../order-list/store/order-list.reducer';
 import { RxAction } from './store.helpers';
 
@@ -13,7 +13,6 @@ function stateSetter(reducer: ActionReducer<any>): ActionReducer<any> {
   };
 }
 
-
 function stateLogger(reducer: ActionReducer<any>): ActionReducer<any> {
   return (state: AppState, action: RxAction) => {
     const nextState = reducer(state, action);
@@ -26,7 +25,6 @@ function stateLogger(reducer: ActionReducer<any>): ActionReducer<any> {
 }
 
 export const metaReducers: MetaReducer<any>[] = [stateSetter, stateLogger];
-
 
 export const reducers: ActionReducerMap<AppState> = {
   orderList
