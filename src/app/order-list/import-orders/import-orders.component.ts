@@ -1,17 +1,16 @@
-import { AfterViewInit, Component, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-import-orders',
   templateUrl: './import-orders.component.html',
   styleUrls: ['./import-orders.component.scss']
 })
-export class ImportOrdersComponent implements AfterViewInit, OnDestroy {
+export class ImportOrdersComponent implements AfterViewInit {
   @ViewChild(TemplateRef)
   ref;
-
+  dialogRef;
   url: string;
 
 
@@ -24,21 +23,19 @@ export class ImportOrdersComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.url = this.router.url;
 
-    this.dialog
+    this.dialogRef = this.dialog
       .open(this.ref, {
         width: '60vw',
         height: '90vh',
         panelClass: 'dialog-panel'
-      })
-      .afterClosed()
-      .pipe(take(1))
-      .subscribe(() => {
-        this.router.navigate(['/']);
       });
+
+    this.dialogRef.afterClosed().subscribe(() => {
+      this.router.navigate(['/']);
+    });
   }
 
-  ngOnDestroy(): void {
-
+  closeDialog(): void {
+    this.dialogRef.close();
   }
-
 }

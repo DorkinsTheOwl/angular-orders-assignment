@@ -11,6 +11,9 @@ import { OrderListService } from 'src/app/order-list/order-list.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ImportOrdersComponent } from 'src/app/order-list/import-orders/import-orders.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SingleOrderComponent } from './import-orders/find-order/single-order/single-order.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { BreadcrumbComponent } from './import-orders/shared-components/breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ConfirmOrderComponent,
     FindOrderComponent,
     PrepareOrderComponent,
+    SingleOrderComponent,
+    BreadcrumbComponent,
   ],
   imports: [
     CommonModule,
@@ -27,10 +32,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
+    MatCheckboxModule
   ],
   providers: [
     OrderListService
-  ],
+  ]
 })
 export class OrderListModule {
 }

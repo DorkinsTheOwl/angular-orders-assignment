@@ -14,6 +14,7 @@ interface SelectedVariant {
 }
 
 interface Order {
+  id: number;
   name: string;
   sku: string;
   selectedVariant: SelectedVariant;

@@ -5,6 +5,7 @@ import { ImportOrdersComponent } from 'src/app/order-list/import-orders/import-o
 import { FindOrderComponent } from 'src/app/order-list/import-orders/find-order/find-order.component';
 import { PrepareOrderComponent } from 'src/app/order-list/import-orders/prepare-order/prepare-order.component';
 import { ConfirmOrderComponent } from 'src/app/order-list/import-orders/confirm-order/confirm-order.component';
+import { SingleOrderComponent } from './import-orders/find-order/single-order/single-order.component';
 
 const orderListRoutes: Routes = [
   {
@@ -13,6 +14,7 @@ const orderListRoutes: Routes = [
       {
         path: 'import', component: ImportOrdersComponent, children: [
           { path: 'find', component: FindOrderComponent },
+          { path: 'find/:id', component: SingleOrderComponent },
           { path: 'prepare', component: PrepareOrderComponent },
           { path: 'confirm', component: ConfirmOrderComponent }
         ],

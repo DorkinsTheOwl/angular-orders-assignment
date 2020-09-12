@@ -5,7 +5,7 @@ import { AppState, InternalOrder } from '../interfaces';
 import { OrderListService } from 'src/app/order-list/order-list.service';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { StoreInternalOrders } from './store/order-list.actions';
+import { StoreExternalOrders, StoreInternalOrders } from './store/order-list.actions';
 
 @Component({
   selector: 'app-order-list',
@@ -14,7 +14,7 @@ import { StoreInternalOrders } from './store/order-list.actions';
 })
 export class OrderListComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [];
-  dataSource: MatTableDataSource<InternalOrder>;
+  dataSource: MatTableDataSource<InternalOrder> = new MatTableDataSource<InternalOrder>([]);
   pageSizeOptions: number[] = [5, 10, 20];
   subscriptions: Subscription = new Subscription();
 
@@ -28,8 +28,13 @@ export class OrderListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log('getting orders');
     this.orderListService.getInternalOrders().subscribe(orders => {
       this.store.dispatch(new StoreInternalOrders(orders));
+
+      this.orderListService.getExternalOrders().subscribe(externalOrders => {
+        this.store.dispatch(new StoreExternalOrders(externalOrders));
+      });
     });
 
     this.subscriptions.add(this.store.select('orderList').subscribe(({ internalOrders }) => {
