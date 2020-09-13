@@ -646,7 +646,7 @@ export const externalOrders = names.slice(names.length / 2).map((customer, index
     return {
       id,
       ...product,
-      selectedVariant: product.variants[Math.floor(Math.random() * product.variants.length)]
+      selectedVariants: [product.variants[Math.floor(Math.random() * product.variants.length)]]
     };
   });
 
@@ -655,7 +655,7 @@ export const externalOrders = names.slice(names.length / 2).map((customer, index
     customer,
     order,
     amount: order.length,
-    volume: +order.reduce((acc, item) => acc + item.selectedVariant.price, 0).toFixed(2),
+    volume: +order.reduce((acc, item) => acc + item.selectedVariants[0].price, 0).toFixed(2),
     sku: order[0].sku,
   };
 });

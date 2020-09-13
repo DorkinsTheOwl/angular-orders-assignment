@@ -1,4 +1,4 @@
-<app-search-order (searchQueryString)="filterData($event)"></app-search-order>
+<app-search-order placeholderText="Enter Order Number/Name" (searchQueryString)="filterData($event)"></app-search-order>
 
 <div class="mat-elevation-z8 mt-4 w-100">
   <table mat-table [dataSource]="dataSource" class="w-100">

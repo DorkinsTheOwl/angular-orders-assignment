@@ -28,7 +28,6 @@ export class OrderListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('getting orders');
     this.orderListService.getInternalOrders().subscribe(orders => {
       this.store.dispatch(new StoreInternalOrders(orders));
 

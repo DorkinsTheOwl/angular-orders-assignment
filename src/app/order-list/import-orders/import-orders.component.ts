@@ -38,7 +38,6 @@ export class ImportOrdersComponent implements AfterViewInit, OnDestroy {
       .pipe(filter(e => e instanceof NavigationStart))
       .subscribe((event: NavigationStart) => {
         this.url = event.url;
-        console.log('this.url', this.url);
         if (!event.url?.includes('/import')) {
           this.dialogRef.close();
         }

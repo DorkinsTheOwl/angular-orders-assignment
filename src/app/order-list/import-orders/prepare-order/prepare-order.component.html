@@ -1,1 +1,58 @@
-<app-breadcrumb></app-breadcrumb>
+<div class="d-flex flex-column">
+  <app-breadcrumb></app-breadcrumb>
+  <div class="mat-elevation-z8 mt-2 w-100">
+    <table mat-table [dataSource]="dataSource" class="w-100" multiTemplateDataRows>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="pr-2">Product Name</th>
+        <td mat-cell *matCellDef="let element" class="pr-2">
+          <div class="d-flex align-items-center">
+            {{ element.name }} <span class="ml-2 arrow-bottom"></span>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="sku">
+        <th mat-header-cell *matHeaderCellDef class="pr-2">SKU</th>
+        <td mat-cell *matCellDef="let element" class="pr-2">{{ element.sku }}</td>
+      </ng-container>
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef class="pr-2">Selected</th>
+        <td mat-cell *matCellDef="let element" class="pr-2">
+          {{hasItemsSelected(element) ? 'selected' : 'not selected'}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+          <div class="overflow-hidden d-flex flex-column mb-2"
+               [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+            <app-search-order placeholderText="Enter Material Name"
+                              (searchQueryString)="filterData($event)"></app-search-order>
+            <ul class="list-group">
+              <li class="list-group-item cursor"
+                  *ngFor="let variant of getFilteredVariants(element.variants)"
+                  (click)="onItemToggle(element.id, variant)"
+              >
+                {{ variant.material }} - {{variant.price}}
+                [{{isVariantSelected(element.id, variant) ? '&nbsp;X&nbsp;' : '&nbsp;&nbsp;&nbsp;&nbsp;' }}]
+              </li>
+            </ul>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+          class="example-element-row cursor"
+          [class.example-expanded-row]="expandedElement === element"
+          (click)="expandedElement = expandedElement === element ? null : element">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+  </div>
+  <div class="d-flex justify-content-end mt-3">
+    <button type="button" class="btn btn-secondary" routerLink="..">Previous</button>
+    <button type="button" class="btn btn-primary ml-2" routerLink="../confirm" [disabled]="isNextDisabled()">Next
+    </button>
+  </div>
+</div>

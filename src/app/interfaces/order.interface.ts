@@ -8,7 +8,7 @@ export interface InternalOrder {
   fulfillment: string;
 }
 
-interface SelectedVariant {
+export interface SingleOrderVariant {
   material: string;
   price: number;
 }
@@ -17,7 +17,8 @@ export interface SingleOrder {
   id: number;
   name: string;
   sku: string;
-  selectedVariant: SelectedVariant;
+  variants: SingleOrderVariant[];
+  selectedVariants: SingleOrderVariant[];
 }
 
 export interface ExternalOrder {

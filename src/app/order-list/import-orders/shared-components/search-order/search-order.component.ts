@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounce } from 'lodash';
 
@@ -12,6 +12,8 @@ export class SearchOrderComponent {
     query: new FormControl('')
   });
   debouncedPerformQuery = debounce(() => this.performQuery(), 200);
+  @Input()
+  placeholderText: string;
   @Output()
   searchQueryString = new EventEmitter<string>();
 

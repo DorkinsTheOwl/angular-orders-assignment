@@ -38,7 +38,7 @@ export class SingleOrderComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.subscriptions.add(this.store.select('orderList').subscribe(({ externalOrders, preparedOrders }) => {
+    this.subscriptions.add(this.store.select('orderList').subscribe(({ externalOrders }) => {
       const selectedOrder = externalOrders.find(({ id }) => id === this.orderNumber)?.order;
       if (selectedOrder?.length) {
         this.dataSource = setupMatTable(selectedOrder, this.paginator, 'name');
