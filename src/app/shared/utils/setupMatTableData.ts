@@ -11,7 +11,7 @@ export const setupMatTable = (orders, paginator, stringFilerKey) => {
     if (!!+filter) {
       return data.id === +filter;
     }
-    return data[stringFilerKey].includes(filter);
+    return data[stringFilerKey].toLowerCase().includes(filter.trim().toLowerCase());
   };
 
   return dataSource;
