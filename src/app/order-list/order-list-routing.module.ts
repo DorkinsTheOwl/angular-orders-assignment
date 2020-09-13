@@ -16,8 +16,8 @@ const orderListRoutes: Routes = [
         path: 'import', component: ImportOrdersComponent, children: [
           { path: 'find', component: FindOrderComponent },
           { path: 'find/:id', component: SingleOrderComponent },
-          { path: 'prepare', component: PrepareOrderComponent, canActivate: [PreparedOrdersGuardService] },
-          { path: 'confirm', component: ConfirmOrderComponent, canActivate: [PreparedOrdersGuardService] },
+          { path: 'find/:id/prepare', component: PrepareOrderComponent, canActivate: [PreparedOrdersGuardService] },
+          { path: 'find/:id/confirm', component: ConfirmOrderComponent, canActivate: [PreparedOrdersGuardService] },
           { path: '**', redirectTo: 'import/find' }
         ],
       },

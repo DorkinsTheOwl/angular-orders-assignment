@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -6,12 +7,10 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./breadcrumb.component.scss']
 })
 export class BreadcrumbComponent implements OnInit {
-  @Input()
-  orderRoute;
-  @Input()
-  orderNumber;
+  orderNumber: number = +this.route.snapshot.paramMap.get('id');
+  orderRoute = `/import/find/${this.orderNumber}`;
 
-  constructor() {
+  constructor(private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
