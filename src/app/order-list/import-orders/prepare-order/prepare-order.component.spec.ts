@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PrepareOrderComponent } from './prepare-order.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from '../../../store/app.reducers';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { MatTableModule } from '@angular/material/table';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('PrepareOrderComponent', () => {
   let component: PrepareOrderComponent;
@@ -8,9 +13,17 @@ describe('PrepareOrderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PrepareOrderComponent ]
+      imports: [
+        StoreModule.forRoot(reducers),
+        MatTableModule,
+        ReactiveFormsModule
+      ],
+      declarations: [PrepareOrderComponent],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
