@@ -3,17 +3,16 @@
     <div class="card-header">
       Import Orders
     </div>
-    <div class="card-body pb-0">
+    <div class="card-body pb-0 mb-4 d-flex flex-column">
       <h5 class="card-title">
         <div class="d-flex justify-content-between">
-          <h4 [ngClass]="{'font-weight-bold': url.includes('find')}">1. Find Order</h4>
-          <h4 [ngClass]="{'font-weight-bold': url.includes('prepare')}">2. Prepare Products</h4>
-          <h4 [ngClass]="{'font-weight-bold': url.includes('confirm')}">3. Confirm Order</h4>
+          <h4 [ngClass]="{'font-weight-bold': url?.includes('find')}">1. Find Order</h4>
+          <h4 [ngClass]="{'font-weight-bold': url?.includes('prepare')}">2. Prepare Products</h4>
+          <h4 [ngClass]="{'font-weight-bold': url?.includes('confirm')}">3. Confirm Order</h4>
         </div>
       </h5>
 
       <router-outlet></router-outlet>
-      <button type="button" class="btn btn-secondary float-right mt-4" (click)="closeDialog()">Cancel</button>
     </div>
   </div>
 </ng-template>

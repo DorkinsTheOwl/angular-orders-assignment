@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes = [
   { path: '', loadChildren: () => import('./order-list/order-list.module').then(m => m.OrderListModule) }, // lazy load
-  { path: '**', redirectTo: '/' },
+  // { path: '**', redirectTo: '/' },
 ];
 
 @NgModule({

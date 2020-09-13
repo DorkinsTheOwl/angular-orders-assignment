@@ -52,3 +52,7 @@ body {
 .cursor {
   cursor: pointer;
 }
+
+* {
+  box-sizing: content-box;
+}

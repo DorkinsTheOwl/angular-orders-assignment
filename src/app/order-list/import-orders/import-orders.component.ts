@@ -1,18 +1,20 @@
-import { AfterViewInit, Component, TemplateRef, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { AfterViewInit, Component, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { NavigationStart, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-import-orders',
   templateUrl: './import-orders.component.html',
   styleUrls: ['./import-orders.component.scss']
 })
-export class ImportOrdersComponent implements AfterViewInit {
+export class ImportOrdersComponent implements AfterViewInit, OnDestroy {
   @ViewChild(TemplateRef)
   ref;
-  dialogRef;
-  url: string;
-
+  dialogRef: MatDialogRef<any>;
+  url: string = this.router.url;
+  subscriptions: Subscription = new Subscription();
 
   constructor(
     private dialog: MatDialog,
@@ -21,21 +23,29 @@ export class ImportOrdersComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.url = this.router.url;
-
     this.dialogRef = this.dialog
       .open(this.ref, {
         width: '60vw',
-        height: '90vh',
+        height: '95vh',
         panelClass: 'dialog-panel'
       });
 
     this.dialogRef.afterClosed().subscribe(() => {
       this.router.navigate(['/']);
     });
+
+    this.subscriptions.add(this.router.events
+      .pipe(filter(e => e instanceof NavigationStart))
+      .subscribe((event: NavigationStart) => {
+        this.url = event.url;
+        console.log('this.url', this.url);
+        if (!event.url?.includes('/import')) {
+          this.dialogRef.close();
+        }
+      }));
   }
 
-  closeDialog(): void {
-    this.dialogRef.close();
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

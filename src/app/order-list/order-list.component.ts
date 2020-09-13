@@ -38,7 +38,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptions.add(this.store.select('orderList').subscribe(({ internalOrders }) => {
-      if (internalOrders.length) {
+      if (internalOrders?.length) {
         this.displayedColumns = Object.keys(internalOrders[0]).map(k => k);
         this.dataSource = new MatTableDataSource<InternalOrder>(internalOrders);
         this.dataSource.paginator = this.paginator;

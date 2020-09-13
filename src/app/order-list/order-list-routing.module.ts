@@ -10,7 +10,7 @@ import { SingleOrderComponent } from './import-orders/find-order/single-order/si
 const orderListRoutes: Routes = [
   {
     path: '', component: OrderListComponent, children: [
-      { path: 'import', redirectTo: 'import/find' },
+      { path: 'import', redirectTo: 'import/find', pathMatch: 'full' },
       {
         path: 'import', component: ImportOrdersComponent, children: [
           { path: 'find', component: FindOrderComponent },

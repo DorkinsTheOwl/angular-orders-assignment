@@ -1,34 +1,41 @@
-<form [formGroup]="searchForm" class="w-100">
-  <input
-    type="text"
-    class="form-control rounded-pill"
-    placeholder="Enter Order Number"
-    formControlName="query"
-    (ngModelChange)="debouncedPerformQuery()"
-  >
-</form>
-<app-breadcrumb [orderNumber]="orderNumber" [orderRoute]="orderRoute"></app-breadcrumb>
-<div class="mat-elevation-z8 mt-4 w-100">
-  <table mat-table [dataSource]="dataSource" class="w-100">
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef class="pr-2">Product Name</th>
-      <td mat-cell *matCellDef="let element" class="pr-2">{{ element.name }}</td>
-    </ng-container>
-    <ng-container matColumnDef="sku">
-      <th mat-header-cell *matHeaderCellDef class="pr-2">SKU</th>
-      <td mat-cell *matCellDef="let element" class="pr-2">{{ element.sku }}</td>
-    </ng-container>
-    <ng-container matColumnDef="select">
-      <th mat-header-cell *matHeaderCellDef class="pr-2">Selected</th>
-      <td mat-cell *matCellDef="let element" class="pr-2">
-        <mat-checkbox (click)="toggleSelected(element)"></mat-checkbox>
-      </td>
-    </ng-container>
+<div class="d-flex flex-column">
+  <app-search-order (searchQueryString)="filterData($event)"></app-search-order>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row class="cursor" *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-  <mat-paginator [pageSizeOptions]="pageSizeOptions" showFirstLastButtons></mat-paginator>
+  <app-breadcrumb [orderNumber]="orderNumber" [orderRoute]="orderRoute"></app-breadcrumb>
+  <div class="mat-elevation-z8 mt-2 w-100">
+    <table mat-table [dataSource]="dataSource" class="w-100">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="pr-2">Product Name</th>
+        <td mat-cell *matCellDef="let element" class="pr-2">{{ element.name }}</td>
+      </ng-container>
+      <ng-container matColumnDef="sku">
+        <th mat-header-cell *matHeaderCellDef class="pr-2">SKU</th>
+        <td mat-cell *matCellDef="let element" class="pr-2">{{ element.sku }}</td>
+      </ng-container>
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef class="pr-2">
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            [checked]="isAllSelected()"
+            [indeterminate]="hasSomeSelected() && !isAllSelected()"
+          ></mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let element" class="pr-2">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            (change)="toggleSelected(element)"
+            [checked]="isChecked(element)"></mat-checkbox>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row class="cursor" *matRowDef="let row; columns: displayedColumns" (click)="toggleSelected(row)"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons></mat-paginator>
+  </div>
+  <div class="d-flex justify-content-end mt-3">
+    <button type="button" class="btn btn-secondary" routerLink="..">Previous</button>
+    <button type="button" class="btn btn-primary ml-2" routerLink="../../prepare" [disabled]="!hasSomeSelected()">Next
+    </button>
+  </div>
 </div>
-<button type="button" class="btn btn-secondary" routerLink="../..">Previous</button>
-<button type="button" class="btn btn-primary" routerLink="prepare">Next</button>

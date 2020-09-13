@@ -1,44 +1,51 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState, ExternalOrder } from '../../../../interfaces';
-import { FormControl, FormGroup } from '@angular/forms';
-import { debounce } from 'lodash';
+import { AppState, ExternalOrder, SingleOrder } from '../../../../interfaces';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { setupMatTable } from '../../../../shared/utils';
+import { PreparedOrders } from '../../../store/order-list.actions';
 
 @Component({
   selector: 'app-single-order',
   templateUrl: './single-order.component.html',
   styleUrls: ['./single-order.component.scss']
 })
-export class SingleOrderComponent implements OnInit, OnDestroy {
+export class SingleOrderComponent implements AfterViewInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
   orderNumber: number = +this.route.snapshot.paramMap.get('id');
   orderRoute = this.router.url;
-  searchForm: FormGroup = new FormGroup({
-    query: new FormControl('')
-  });
-  debouncedPerformQuery = debounce(() => this.performQuery(), 300);
   displayedColumns: string[] = ['name', 'sku', 'select'];
-  pageSizeOptions: number[] = [5, 10, 20];
   dataSource: MatTableDataSource<ExternalOrder> = new MatTableDataSource<ExternalOrder>([]);
-  selectedItems: { [key: string]: Pick<ExternalOrder, 'order'> } = {};
+  selectedItems: { [key: string]: SingleOrder } = {};
+  selectedItemsLength = (): number => Object.keys(this.selectedItems).length;
+  dataSourceLength = (): number => this.dataSource.data.length;
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator;
+  isAllSelected = (): boolean =>
+    this.selectedItemsLength() &&
+    this.dataSourceLength() &&
+    this.selectedItemsLength() === this.dataSourceLength();
+  hasSomeSelected = (): boolean => !!this.selectedItemsLength();
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private store: Store<AppState>
   ) {
-    console.log(this.router.url);
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.subscriptions.add(this.store.select('orderList').subscribe(({ externalOrders }) => {
       const selectedOrder = externalOrders.find(({ id }) => id === this.orderNumber)?.order;
-
-      this.dataSource = new MatTableDataSource<ExternalOrder>(selectedOrder);
+      if (selectedOrder?.length) {
+        this.dataSource = setupMatTable(selectedOrder, this.paginator, 'name');
+      }
     }));
+
+    this.store.dispatch(new PreparedOrders([]));
   }
 
   ngOnDestroy(): void {
@@ -49,20 +56,34 @@ export class SingleOrderComponent implements OnInit, OnDestroy {
     this.router.navigate(['../..'], { relativeTo: this.route });
   }
 
-  performQuery(): void {
-    console.log(this.searchForm.value.query);
+  filterData(searchQuery: string): void {
+    this.dataSource.filter = searchQuery;
   }
 
-  toggleSelected(row): void {
-    console.log('row', row);
-    console.log('this.selectedItems[row.id]', this.selectedItems[row.id]);
-
+  toggleSelected(row: SingleOrder): void {
     if (this.selectedItems[row.id]) {
       delete this.selectedItems[row.id];
     } else {
       this.selectedItems[row.id] = row;
     }
 
-    console.log('this.selectedItems', this.selectedItems);
+    this.store.dispatch(new PreparedOrders(Object.values(this.selectedItems)));
+  }
+
+  isChecked(row: SingleOrder): boolean {
+    return !!this.selectedItems[row.id];
+  }
+
+  masterToggle(): void {
+    if (this.selectedItemsLength()) {
+      this.selectedItems = {};
+    } else {
+      this.selectedItems = Object.values(this.dataSource.data).reduce((acc, value) => {
+        acc[value.id] = value;
+        return acc;
+      }, {});
+    }
+
+    this.store.dispatch(new PreparedOrders(Object.values(this.selectedItems)));
   }
 }

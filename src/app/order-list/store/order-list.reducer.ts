@@ -1,10 +1,11 @@
 import { OrderListState } from 'src/app/interfaces';
 import { RxAction } from '../../store/store.helpers';
-import { StoreExternalOrders, StoreInternalOrders } from './order-list.actions';
+import { PreparedOrders, StoreExternalOrders, StoreInternalOrders } from './order-list.actions';
 
 const initialState: OrderListState = {
   internalOrders: [],
-  externalOrders: []
+  externalOrders: [],
+  preparedOrders: [],
 };
 
 export const orderListReducer = (state = initialState, action: RxAction): OrderListState => {
@@ -18,6 +19,12 @@ export const orderListReducer = (state = initialState, action: RxAction): OrderL
       return {
         ...state,
         internalOrders: action.payload
+      };
+
+    case PreparedOrders.name:
+      return {
+        ...state,
+        preparedOrders: action.payload
       };
     default:
       return state;

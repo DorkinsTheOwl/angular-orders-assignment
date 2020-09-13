@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SingleOrderComponent } from './import-orders/find-order/single-order/single-order.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BreadcrumbComponent } from './import-orders/shared-components/breadcrumb/breadcrumb.component';
+import { SearchOrderComponent } from './import-orders/shared-components/search-order/search-order.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { BreadcrumbComponent } from './import-orders/shared-components/breadcrum
     PrepareOrderComponent,
     SingleOrderComponent,
     BreadcrumbComponent,
+    SearchOrderComponent,
   ],
   imports: [
     CommonModule,

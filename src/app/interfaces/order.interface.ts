@@ -13,7 +13,7 @@ interface SelectedVariant {
   price: number;
 }
 
-interface Order {
+export interface SingleOrder {
   id: number;
   name: string;
   sku: string;
@@ -23,7 +23,7 @@ interface Order {
 export interface ExternalOrder {
   id: number;
   customer: string;
-  order: Order[];
+  order: SingleOrder[];
   amount: number;
   volume: number;
   sku: string;

@@ -1,4 +1,4 @@
-import { ExternalOrder, InternalOrder } from './';
+import { ExternalOrder, InternalOrder, SingleOrder } from './';
 
 export interface AppState {
   orderList: any;
@@ -7,4 +7,5 @@ export interface AppState {
 export interface OrderListState {
   internalOrders: InternalOrder[];
   externalOrders: ExternalOrder[];
+  preparedOrders: SingleOrder[];
 }

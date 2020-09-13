@@ -1,6 +1,4 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { debounce } from 'lodash';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, ExternalOrder } from 'src/app/interfaces';
@@ -8,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { OrderListService } from '../../order-list.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { setupMatTable } from '../../../shared/utils';
 
 @Component({
   selector: 'app-find-order',
@@ -16,13 +15,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class FindOrderComponent implements AfterViewInit, OnDestroy {
   displayedColumns: string[] = ['id', 'customer', 'amount', 'volume', 'sku'];
-  pageSizeOptions: number[] = [5, 10, 20];
   dataSource: MatTableDataSource<ExternalOrder> = new MatTableDataSource<ExternalOrder>([]);
-  searchForm: FormGroup = new FormGroup({
-    query: new FormControl('')
-  });
   subscriptions: Subscription = new Subscription();
-  debouncedPerformQuery = debounce(() => this.performQuery(), 300);
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
@@ -36,9 +30,8 @@ export class FindOrderComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.subscriptions.add(this.store.select('orderList').subscribe(({ externalOrders }) => {
-      if (externalOrders.length) {
-        this.dataSource = new MatTableDataSource<ExternalOrder>(externalOrders);
-        this.dataSource.paginator = this.paginator;
+      if (externalOrders?.length) {
+        this.dataSource = setupMatTable(externalOrders, this.paginator, 'customer');
       }
     }));
   }
@@ -47,12 +40,11 @@ export class FindOrderComponent implements AfterViewInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  performQuery(): void {
-    console.log(this.searchForm.value.query);
+  filterData(searchQuery): void {
+    this.dataSource.filter = searchQuery;
   }
 
   openSpecificQuery(row): void {
-    console.log(row);
     this.router.navigate([row.id], { relativeTo: this.route });
   }
 }
