@@ -16,6 +16,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BreadcrumbComponent } from './import-orders/shared-components/breadcrumb/breadcrumb.component';
 import { SearchOrderComponent } from './import-orders/shared-components/search-order/search-order.component';
 import { PreparedOrdersGuardService } from './order-list-guard.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { PreparedOrdersGuardService } from './order-list-guard.service';
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule
   ],
   providers: [
     OrderListService,

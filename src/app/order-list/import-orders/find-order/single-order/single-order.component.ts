@@ -6,7 +6,7 @@ import { AppState, ExternalOrder, SingleOrder } from '../../../../interfaces';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { setupMatTable } from '../../../../shared/utils';
-import { PreparedOrders } from '../../../store/order-list.actions';
+import { PreparedOrders, StoreSelectedCustomerData } from '../../../store/order-list.actions';
 
 @Component({
   selector: 'app-single-order',
@@ -38,10 +38,14 @@ export class SingleOrderComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.subscriptions.add(this.store.select('orderList').subscribe(({ externalOrders }) => {
-      const selectedOrder = externalOrders.find(({ id }) => id === this.orderNumber)?.order;
-      if (selectedOrder?.length) {
-        this.dataSource = setupMatTable(selectedOrder, this.paginator, 'name');
+    this.subscriptions.add(this.store.select('orderList').subscribe(({ externalOrders, selectedCustomerData }) => {
+      const selectedOrder = externalOrders.find(({ id }) => id === this.orderNumber);
+      if (selectedOrder?.order?.length) {
+        this.dataSource = setupMatTable(selectedOrder.order, this.paginator, 'name');
+      }
+
+      if (!selectedCustomerData && selectedOrder) {
+        this.store.dispatch(new StoreSelectedCustomerData(selectedOrder));
       }
     }));
 

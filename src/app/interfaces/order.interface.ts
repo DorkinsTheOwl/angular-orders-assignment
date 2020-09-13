@@ -6,6 +6,8 @@ export interface InternalOrder {
   cost: number;
   price: number;
   fulfillment: string;
+  name?: string;
+  selectedVariants?: SingleOrderVariant[];
 }
 
 export interface SingleOrderVariant {

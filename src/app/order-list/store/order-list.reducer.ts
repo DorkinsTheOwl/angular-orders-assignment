@@ -1,11 +1,19 @@
-import { OrderListState } from 'src/app/interfaces';
+import { InternalOrder, OrderListState } from 'src/app/interfaces';
 import { RxAction } from '../../store/store.helpers';
-import { PreparedOrders, SelectVariantsInPreparedOrders, StoreExternalOrders, StoreInternalOrders } from './order-list.actions';
+import {
+  AddInternalOrder,
+  PreparedOrders,
+  SelectVariantsInPreparedOrders,
+  StoreExternalOrders,
+  StoreInternalOrders,
+  StoreSelectedCustomerData
+} from './order-list.actions';
 
 const initialState: OrderListState = {
   internalOrders: [],
   externalOrders: [],
   preparedOrders: [],
+  selectedCustomerData: null
 };
 
 export const orderListReducer = (state = initialState, action: RxAction): OrderListState => {
@@ -15,12 +23,43 @@ export const orderListReducer = (state = initialState, action: RxAction): OrderL
         ...state,
         externalOrders: action.payload
       };
+    case StoreSelectedCustomerData.name:
+      return {
+        ...state,
+        selectedCustomerData: action.payload
+      };
     case StoreInternalOrders.name:
       return {
         ...state,
         internalOrders: action.payload
       };
+    case AddInternalOrder.name:
+      const { customer } = state.selectedCustomerData;
+      const selVariants = state.preparedOrders.reduce((acc, order) => {
+        return [...acc, ...order.selectedVariants];
+      }, []);
 
+      console.log('selVariants', selVariants);
+
+      const cost = +selVariants.reduce((acc, value) => acc + Math.ceil(value.price * 0.75), 0).toFixed(2);
+      const price = +selVariants.reduce((acc, value) => acc + value.price, 0).toFixed(2);
+
+      const internalOrder: InternalOrder = {
+        id: state.internalOrders.length,
+        created: new Date(),
+        customer,
+        selectedVariants: selVariants,
+        revenue: +(price - cost).toFixed(2),
+        cost,
+        price,
+        fulfillment: 'Ordered',
+      };
+      return {
+        ...state,
+        internalOrders: [...state.internalOrders, internalOrder],
+        preparedOrders: [],
+        selectedCustomerData: null
+      };
     case PreparedOrders.name:
       return {
         ...state,

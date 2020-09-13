@@ -1,11 +1,12 @@
 import { ExternalOrder, InternalOrder, SingleOrder } from './';
 
 export interface AppState {
-  orderList: any;
+  orderList: OrderListState;
 }
 
 export interface OrderListState {
   internalOrders: InternalOrder[];
   externalOrders: ExternalOrder[];
   preparedOrders: SingleOrder[];
+  selectedCustomerData: ExternalOrder;
 }
