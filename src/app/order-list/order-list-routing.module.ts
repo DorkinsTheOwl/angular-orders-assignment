@@ -6,6 +6,7 @@ import { FindOrderComponent } from 'src/app/order-list/import-orders/find-order/
 import { PrepareOrderComponent } from 'src/app/order-list/import-orders/prepare-order/prepare-order.component';
 import { ConfirmOrderComponent } from 'src/app/order-list/import-orders/confirm-order/confirm-order.component';
 import { SingleOrderComponent } from './import-orders/find-order/single-order/single-order.component';
+import { PreparedOrdersGuardService } from './order-list-guard.service';
 
 const orderListRoutes: Routes = [
   {
@@ -15,8 +16,9 @@ const orderListRoutes: Routes = [
         path: 'import', component: ImportOrdersComponent, children: [
           { path: 'find', component: FindOrderComponent },
           { path: 'find/:id', component: SingleOrderComponent },
-          { path: 'prepare', component: PrepareOrderComponent },
-          { path: 'confirm', component: ConfirmOrderComponent }
+          { path: 'prepare', component: PrepareOrderComponent, canActivate: [PreparedOrdersGuardService] },
+          { path: 'confirm', component: ConfirmOrderComponent, canActivate: [PreparedOrdersGuardService] },
+          { path: '**', redirectTo: 'import/find' }
         ],
       },
     ],

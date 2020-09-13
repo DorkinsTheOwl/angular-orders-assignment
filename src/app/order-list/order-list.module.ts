@@ -15,6 +15,7 @@ import { SingleOrderComponent } from './import-orders/find-order/single-order/si
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BreadcrumbComponent } from './import-orders/shared-components/breadcrumb/breadcrumb.component';
 import { SearchOrderComponent } from './import-orders/shared-components/search-order/search-order.component';
+import { PreparedOrdersGuardService } from './order-list-guard.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SearchOrderComponent } from './import-orders/shared-components/search-o
     MatCheckboxModule
   ],
   providers: [
-    OrderListService
+    OrderListService,
+    PreparedOrdersGuardService
   ]
 })
 export class OrderListModule {
