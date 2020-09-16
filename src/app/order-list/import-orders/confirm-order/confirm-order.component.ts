@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { AppState, SingleOrder } from '../../../interfaces';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -22,8 +22,8 @@ export class ConfirmOrderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.order = this.store.select('orderList').pipe(map(({ preparedOrders }) => preparedOrders));
-    this.orderPrice = this.store.select('orderList').pipe(map(({ preparedOrders }) =>
+    this.order = this.store.pipe(select('orderList'), map(({ preparedOrders }) => preparedOrders));
+    this.orderPrice = this.store.pipe(select('orderList'), map(({ preparedOrders }) =>
       +preparedOrders.reduce((orderSum, order) =>
         orderSum += order.selectedVariants.reduce((variantSum, variant) =>
           variantSum += variant.price, 0), 0).toFixed(2)
